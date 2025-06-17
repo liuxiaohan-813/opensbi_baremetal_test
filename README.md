@@ -28,12 +28,19 @@ https://nucleisys.com/download.php
 ### 2.2 Prepare the cross-compilation toolchain
 
 ```
-PATH=$PATH:$HOME/toolschain/gcc/bin:$HOME/toolschain/qemu/bin
+PATH=$PATH:$HOME/toolchain/gcc/bin:$HOME/toolchain/qemu/bin
 ```
 
 ## 3 compile
 
 ### 3.1 compile opensbi
+
+update submodule before compile:
+``` bash
+git submodule update --init --recursive
+```
+
+and then:
 
 ``` makefile
 make opensbi
