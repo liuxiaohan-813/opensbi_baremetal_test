@@ -59,13 +59,12 @@ clean:
 
 # clean all
 distclean: clean
-	$(MAKE) -C $(TARGET) clean
 	$(MAKE) -C $(OPENSBI) \
 		PLATFORM=$(PLATFORM) \
 		CROSS_COMPILE=$(CROSS_COMPILE) \
 		FW_TEXT_START=$(FW_TEXT_START)	\
 		PLATFORM_RISCV_XLEN=$(RISCV_XLEN) \
-		clean
+		distclean
 
 # help
 help:
@@ -75,5 +74,5 @@ help:
 	@echo "  all        - Default target (builds firmware and opensbi)"
 	@echo "  run_qemu   - Run in QEMU"
 	@echo "Clean targets:"
-	@echo "  clean      - Clean application"
-	@echo "  distclean  - Clean application and OpenSBI"
+	@echo "  clean      - Clean compile file"
+	@echo "  distclean  - Clean all compile file and rm opensbi/build path"
