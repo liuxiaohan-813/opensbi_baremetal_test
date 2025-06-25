@@ -1,11 +1,12 @@
 #include "sbi.h"
+
 int main()
 {
-    SBI_PUTCHAR('H');
-    SBI_PUTCHAR('e');
-    SBI_PUTCHAR('l');
-    SBI_PUTCHAR('l');
-    SBI_PUTCHAR('o');
-    SBI_PUTCHAR('\n');
+    sbi_console_putchar('H');
+    sbi_console_putchar('e');
+    sbi_console_putchar('l');
+    sbi_console_putchar('l');
+    sbi_console_putchar('o');
+    sbi_console_putchar('\n');
     while(1) {}
 }

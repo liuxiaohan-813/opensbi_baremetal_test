@@ -1,5 +1,5 @@
 # 源文件和输出目录
-SRCS    := entry.s main.c
+SRCS    := entry.s sbi.c main.c
 OBJS    := $(SRCS:.c=.o)
 OBJS    := $(OBJS:.s=.o)
 TARGET  := helloworld.elf
