@@ -49,7 +49,7 @@ make opensbi
 ### 3.2 compile baremetal test case
 
 ``` makefile
-make TARGET=helloworld firmware
+make firmware
 ```
 ## 4 run with qemu
 
