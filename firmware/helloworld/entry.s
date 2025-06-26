@@ -4,6 +4,4 @@ _start:
     /* setup stack */
     la    sp, _sp           # setup stack pointer
     call main
-
-halt:   
-    j     halt                    # enter the infinite loop
+halt:   j     halt                    # enter the infinite loop

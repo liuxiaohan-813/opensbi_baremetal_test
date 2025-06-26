@@ -1,30 +1,34 @@
-# 源文件和输出目录
+# submodle path
+TINYPRINTF 	:= tinyprintf
+
+# source and target
 SRCS    := entry.s sbi.c main.c
 OBJS    := $(SRCS:.c=.o)
 OBJS    := $(OBJS:.s=.o)
 TARGET  := helloworld.elf
 
-# 编译和链接选项
-CFLAGS  += -nostdlib -Wall -Os -fno-builtin
+# compile and link args
+CFLAGS  += -nostdlib -Wall -Os -fno-builtin -mcmodel=medany
 LDFLAGS += -Tlink.ld -nostdlib -static
 
-# 定义所有目标
 .PHONY: all clean
 
 all: $(TARGET)
 
-# 编译规则
+# rules of compile
 %.o: %.c
+	$(MAKE) -C $(TINYPRINTF) CFLAGS="$(filter-out -Wextra,$(CFLAGS))" compiletests
 	$(CC) $(CFLAGS) -c $< -o $@
 
 %.o: %.s
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# 链接规则
-$(TARGET): $(OBJS)
-	$(LD) $(LDFLAGS) -o $@ $^
+# rules of link
+$(TARGET): $(OBJS) 
+	$(LD) $(LDFLAGS) -o $@ $^ $(TINYPRINTF)/tinyprintf_only_tfp_printf.o
 	$(SIZE) $@
 
-# 清理规则
+# rules of clean
 clean:
+	$(MAKE) -C $(TINYPRINTF) clean
 	rm -f $(OBJS) $(TARGET)

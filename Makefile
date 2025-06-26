@@ -25,7 +25,7 @@ QEMU_CMD      = $(QEMU) $(QEMU_FLAGS) -bios $(FW_JUMP) -kernel $(FW_NEXT)/$(TARG
 # fw_jump path
 FW_JUMP       = $(OPENSBI)/build/platform/$(PLATFORM)/firmware/fw_jump.elf
 
-.PHONY: all opensbi firmware run clean distclean
+.PHONY: all opensbi firmware fw_clean opensbi_clean clean distclean
 
 all: firmware opensbi
 
@@ -55,14 +55,17 @@ run_qemu: $(FW_NEXT)
 	$(QEMU_CMD)
 
 # clean target
-clean:
+fw_clean:
 	$(MAKE) -C $(FW_NEXT) clean
+
+opensbi_clean:
 	$(MAKE) -C $(OPENSBI) \
 		PLATFORM=$(PLATFORM) \
 		CROSS_COMPILE=$(CROSS_COMPILE) \
 		FW_TEXT_START=$(FW_TEXT_START)	\
 		PLATFORM_RISCV_XLEN=$(RISCV_XLEN) \
 		clean
+clean: fw_clean opensbi_clean
 
 # clean all
 distclean: clean
@@ -76,10 +79,12 @@ distclean: clean
 # help
 help:
 	@echo "Build targets:"
-	@echo "  opensbi    - Build OpenSBI firmware"
-	@echo "  firmware   - Build your application"
-	@echo "  all        - Default target (builds firmware and opensbi)"
-	@echo "  run_qemu   - Run in QEMU"
+	@echo "  opensbi    	- Build OpenSBI firmware"
+	@echo "  firmware   	- Build your application"
+	@echo "  all        	- Default target (builds firmware and opensbi)"
+	@echo "  run_qemu   	- Run in QEMU"
 	@echo "Clean targets:"
-	@echo "  clean      - Clean compile file"
-	@echo "  distclean  - Clean all compile file and rm opensbi/build path"
+	@echo "  fw_clean   	- Clean firmware obj"
+	@echo "  opensbi_clean  - Clean opensbi obj"
+	@echo "  clean      	- Clean firmware & opensbi obj"
+	@echo "  distclean  	- Clean all compile obj file and rm opensbi/build path"

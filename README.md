@@ -119,5 +119,7 @@ Boot HART MHPM Info         : 29 (0xfffffff8)
 Boot HART Debug Triggers    : 2 triggers
 Boot HART MIDELEG           : 0x0000000000000222
 Boot HART MEDELEG           : 0x000000000000b109
-Hello
+
+RISCV
+hello world
 ```
